@@ -10,35 +10,29 @@ export const runtime = "edge";
 const generatedId = () => Math.random().toString(36).slice(2, 15);
 
 const buildGoogleGenAIPrompt = (messages) => {
-  if (!messages || messages.length === 0) {
-    throw new Error("Messages array is empty");
+  if (!messages || !Array.isArray(messages)) {
+    throw new Error("Invalid messages format");
   }
 
-  // Filter out messages with missing content
-  const validMessages = messages.filter(msg => msg && msg.content);
-  
-  if (validMessages.length === 0) {
-    throw new Error("No valid messages found");
-  }
+  const formattedMessages = [
+    {
+      id: generatedId(),
+      role: "user",
+      content: messages[0]?.content || ""
+    },
+    ...messages.slice(1).map((message) => ({
+      id: message.id || generatedId(),
+      role: message.role || "user",
+      content: message.content || ""
+    }))
+  ];
 
-  return validMessages.map(message => ({
-    id: message.id || generatedId(),
-    role: message.role || "user", // Default to user if role not specified
-    content: message.content.trim() // Sanitize content
-  }));
+  return formattedMessages;
 };
 
 export async function POST(request) {
   try {
     const { messages } = await request.json();
-
-    if (!messages || !Array.isArray(messages)) {
-      return new Response(
-        JSON.stringify({ error: "Invalid messages format" }), 
-        { status: 400 }
-      );
-    }
-
     const formattedMessages = buildGoogleGenAIPrompt(messages);
     
     const stream = await streamText({
@@ -47,19 +41,10 @@ export async function POST(request) {
       temperature: 0.7,
     });
 
-    if (!stream) {
-      throw new Error("Failed to generate stream response");
-    }
-
-    return stream.toDataStreamResponse();
-
+    return stream?.toDataStreamResponse();
   } catch (error) {
-    console.error("Gemini API Error:", error);
     return new Response(
-      JSON.stringify({ 
-        error: "Failed to process request", 
-        details: error.message 
-      }), 
+      JSON.stringify({ error: error.message }), 
       { status: 500 }
     );
   }
