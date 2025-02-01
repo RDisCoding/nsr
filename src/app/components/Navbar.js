@@ -1,9 +1,10 @@
+// src/app/components/Navbar.js
 "use client"
 
 import { motion } from "framer-motion"
 import Image from "next/image"
 
-export default function Navbar({ onFeaturesClick, onFAQClick, onAboutClick }) {
+export default function Navbar({ onFeaturesClick, onFAQClick, onAboutClick, onGetStartedClick }) {
   return (
     <nav className="sticky top-0 z-50 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm">
       <div className="container mx-auto px-4">
@@ -35,6 +36,7 @@ export default function Navbar({ onFeaturesClick, onFAQClick, onAboutClick }) {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-md"
+              onClick={onGetStartedClick}
             >
               Get Started
             </motion.button>

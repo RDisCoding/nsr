@@ -1,37 +1,28 @@
-"use client"
+// src/app/a/page.js
+'use client';
 
-import { motion } from "framer-motion"
+import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 
-export default function PageA() {
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-      },
-    },
-  }
+export default function LoggedInPage() {
+  const { data: session, status } = useSession();
+  const router = useRouter();
 
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0 },
+  useEffect(() => {
+    if (status === 'unauthenticated') {
+      router.push('/login');
+    }
+  }, [status]);
+
+  if (status === 'loading') {
+    return <p>Loading...</p>;
   }
 
   return (
-    <motion.div
-      className="container mx-auto px-4 py-20"
-      variants={containerVariants}
-      initial="hidden"
-      animate="visible"
-    >
-      <motion.h1 className="text-4xl font-bold text-gray-800 mb-4" variants={itemVariants}>
-        Page A
-      </motion.h1>
-      <motion.p className="text-gray-600" variants={itemVariants}>
-        This is the content for page A.
-      </motion.p>
-    </motion.div>
-  )
+    <div className="flex flex-col justify-center items-center min-h-screen bg-white dark:bg-gray-900 text-gray-800 dark:text-white">
+      <h1 className="text-3xl font-bold">Welcome, {session?.user?.name}!</h1>
+      <p className="mt-4">You are now logged in.</p>
+    </div>
+  );
 }
-

@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 
-export default function Signup() {
+export default function Signup({ onToggle }) {
   const router = useRouter();
 
   const [username, setUsername] = useState('');
@@ -15,6 +15,7 @@ export default function Signup() {
   const [showOtpField, setShowOtpField] = useState(false);
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
+  const [showLogin, setShowLogin] = useState(false);
 
   const validatePassword = (password) => {
     const minLength = password.length >= 8;
@@ -100,8 +101,8 @@ export default function Signup() {
   };
 
   return (
-    <div className="max-w-md mx-auto p-6 bg-white shadow-md rounded-lg">
-      <h2 className="text-xl font-semibold text-center">Sign Up</h2>
+    <div className="max-w-md mx-auto p-6 bg-white dark:bg-gray-800 shadow-md rounded-lg">
+      <h2 className="text-xl font-semibold text-center text-gray-800 dark:text-white">Sign Up</h2>
 
       {errors.form && <p className="text-red-500">{errors.form}</p>}
 
@@ -155,6 +156,15 @@ export default function Signup() {
       {password !== confirmPassword && (
         <p className="text-red-500">Passwords do not match</p>
       )}
+      <p className="mt-4 text-sm text-gray-600 dark:text-gray-300">
+        Already have an account?{" "}
+        <button
+          onClick={onToggle}
+          className="text-blue-500 hover:underline"
+        >
+          Log in
+        </button>
+      </p>
 
       {!showOtpField ? (
         <button

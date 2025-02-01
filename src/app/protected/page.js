@@ -20,10 +20,10 @@ export default function ProtectedPage() {
   }
 
   return (
-    <div className="flex flex-col justify-center items-center min-h-screen bg-gray-100">
+    <div className="flex flex-col justify-center items-center min-h-screen bg-white dark:bg-gray-900 text-gray-800 dark:text-white">
       <h1 className="text-3xl font-bold">Protected Page</h1>
       <p className="mt-4">Welcome, {session?.user?.name}!</p>
-      <button onClick={() => signOut()} className="mt-4 bg-red-500 text-white px-4 py-2 rounded">
+      <button onClick={() => signOut()} className="mt-4 bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">
         Logout
       </button>
     </div>

@@ -1,3 +1,4 @@
+// src/app/components/ThemeToggle.js
 "use client"
 
 import { useTheme } from "../provider"
@@ -19,10 +20,7 @@ export default function ThemeToggle() {
       className="fixed bottom-4 right-4 p-3 bg-white dark:bg-gray-800 rounded-full shadow-lg"
       aria-label="Toggle theme"
     >
-      {theme === "dark"
-        ? <Sun className="h-6 w-6 text-yellow-500" />
-        : <Moon className="h-6 w-6 text-blue-500" />
-      }
+      {theme === "dark" ? <Sun className="h-6 w-6 text-yellow-500" /> : <Moon className="h-6 w-6 text-blue-500" />}
     </button>
   )
 }
