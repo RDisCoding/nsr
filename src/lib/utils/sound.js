@@ -5,6 +5,12 @@ export const playSound = (type) => {
     case "click":
       audio.src = "/sounds/click.mp3"
       break
+    case "success":
+      audio.src = "/sounds/success.mp3"
+      break
+    case "error":
+      audio.src = "/sounds/error.mp3"
+      break
     default:
       return
   }
