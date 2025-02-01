@@ -1,8 +1,8 @@
 // src/app/components/AuthForms.js
-'use client';
+"use client";
 import { motion, AnimatePresence } from 'framer-motion';
-import Login from '../login/page';
-import Signup from '../signup/page';
+import Login from '@/app/login/page';
+import Signup from '@/app/signup/page';
 
 export default function AuthForms({ showLogin, setShowLogin }) {
   return (

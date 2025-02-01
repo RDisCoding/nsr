@@ -1,7 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { playSound } from "../utils/sound"
+import { playSound } from "@/lib/utils/sound"
 
 export default function LoginSignup() {
   return (

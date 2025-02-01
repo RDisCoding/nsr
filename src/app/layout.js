@@ -1,5 +1,5 @@
 import "./globals.css"
-import { Providers } from "./provider"
+import { Providers } from "@/lib/provider"
 
 export const metadata = {
   title: "DotSlash8 - Modern Web Application",

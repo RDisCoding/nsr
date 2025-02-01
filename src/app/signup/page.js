@@ -75,12 +75,18 @@ export default function Signup({ onToggle }) {
     });
 
     if (res.ok) {
-      router.push('/login');
+      // Instead of router.push('/login'), use onToggle
+      setLoading(false);
+      // Optional: Show a success message before toggling
+      setErrors({ success: 'Registration successful! Please log in.' });
+      setTimeout(() => {
+        onToggle(); // This will switch to the login form with animation
+      }, 1500); // Give users 1.5 seconds to see the success message
     } else {
       const data = await res.json();
       setErrors({ ...errors, form: data.message });
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   const verifyOtp = async () => {
@@ -102,9 +108,10 @@ export default function Signup({ onToggle }) {
 
   return (
     <div className="max-w-md mx-auto p-6 bg-white dark:bg-gray-800 shadow-md rounded-lg">
-      <h2 className="text-xl font-semibold text-center text-gray-800 dark:text-white">Sign Up</h2>
+    <h2 className="text-xl font-semibold text-center text-gray-800 dark:text-white">Sign Up</h2>
 
-      {errors.form && <p className="text-red-500">{errors.form}</p>}
+    {errors.form && <p className="text-red-500">{errors.form}</p>}
+    {errors.success && <p className="text-green-500">{errors.success}</p>}
 
       <input
         type="text"
@@ -156,19 +163,10 @@ export default function Signup({ onToggle }) {
       {password !== confirmPassword && (
         <p className="text-red-500">Passwords do not match</p>
       )}
-      <p className="mt-4 text-sm text-gray-600 dark:text-gray-300">
-        Already have an account?{" "}
-        <button
-          onClick={onToggle}
-          className="text-blue-500 hover:underline"
-        >
-          Log in
-        </button>
-      </p>
 
       {!showOtpField ? (
         <button
-          className="w-full bg-blue-500 text-white p-2 rounded mt-3"
+          className="w-full bg-blue-500 text-white p-2 rounded mt-3 disabled:bg-blue-300"
           onClick={sendOtp}
           disabled={loading}
         >
@@ -186,7 +184,7 @@ export default function Signup({ onToggle }) {
           {errors.otp && <p className="text-red-500">{errors.otp}</p>}
 
           <button
-            className="w-full bg-green-500 text-white p-2 rounded mt-3"
+            className="w-full bg-green-500 text-white p-2 rounded mt-3 disabled:bg-green-300"
             onClick={verifyOtp}
             disabled={loading}
           >
@@ -194,6 +192,16 @@ export default function Signup({ onToggle }) {
           </button>
         </>
       )}
+
+      <p className="mt-4 text-sm text-gray-600 dark:text-gray-300">
+        Already have an account?{" "}
+        <button
+          onClick={onToggle}
+          className="text-blue-500 hover:underline"
+        >
+          Log in
+        </button>
+      </p>
     </div>
   );
 }
