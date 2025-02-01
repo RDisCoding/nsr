@@ -1,5 +1,112 @@
 // src/app/login/page.js
 'use client';
+import { signIn } from 'next-auth/react';
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+
+export default function Login() {
+  const router = useRouter();
+  const [identifier, setIdentifier] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const result = await signIn('credentials', {
+      redirect: false,
+      identifier,
+      password,
+    });
+
+    if (result.error) {
+      setError(result.error);
+    } else {
+      router.push('/protected');
+    }
+  };
+
+  return (
+    <div className="max-w-md mx-auto p-6 bg-white shadow-md rounded-lg">
+      <h2 className="text-xl font-semibold text-center">Login</h2>
+      {error && <p className="text-red-500">{error}</p>}
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          placeholder="Email or Username"
+          value={identifier}
+          onChange={(e) => setIdentifier(e.target.value)}
+          className="w-full p-2 border rounded mt-2"
+          required
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          className="w-full p-2 border rounded mt-2"
+          required
+        />
+        <button type="submit" className="w-full bg-blue-500 text-white p-2 rounded mt-3">
+          Login
+        </button>
+      </form>
+    </div>
+  );
+}
+
+
+/*'use client';
+import { signIn } from 'next-auth/react';
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+
+export default function Login() {
+  const router = useRouter();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState(null);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const result = await signIn('credentials', { redirect: false, email, password });
+
+    if (!result.error) {
+      router.push('/protected');
+    } else {
+      setError('Invalid credentials');
+    }
+  };
+
+  return (
+    <div className="max-w-md mx-auto p-6 bg-white shadow-md rounded-lg">
+      <h2 className="text-xl font-semibold text-center">Login</h2>
+
+      {error && <p className="text-red-500">{error}</p>}
+
+      <input
+        type="email"
+        placeholder="Email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        className="w-full p-2 border rounded mt-2"
+      />
+      <input
+        type="password"
+        placeholder="Password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+        className="w-full p-2 border rounded mt-2"
+      />
+
+      <button className="w-full bg-blue-500 text-white p-2 rounded mt-3" onClick={handleSubmit}>
+        Login
+      </button>
+    </div>
+  );
+}
+*/
+
+/*'use client';
 
 import { useState } from 'react';
 import { signIn } from 'next-auth/react';
@@ -54,3 +161,4 @@ export default function LoginPage() {
     </div>
   );
 }
+*/
