@@ -1,14 +1,17 @@
 import "./globals.css"
+import { Providers } from "./provider"
 
 export const metadata = {
-  title: "Home Page Layout",
-  description: "A stylish and responsive home page layout for a Next.js website",
+  title: "DotSlash8 - Modern Web Application",
+  description: "A stylish and responsive website built with Next.js and Tailwind CSS",
 }
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body className="bg-gray-100">{children}</body>
+    <html lang="en" suppressHydrationWarning>
+      <body suppressHydrationWarning>
+        <Providers>{children}</Providers>
+      </body>
     </html>
   )
 }

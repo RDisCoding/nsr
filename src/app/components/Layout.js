@@ -29,12 +29,12 @@ export default function Layout({ children }) {
   }, [])
 
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="min-h-screen bg-gray-100 dark:bg-gray-900">
       {isLoading && <LoadingScreen />}
-      <header className="bg-white shadow-md">
+      <header className="bg-white dark:bg-gray-800 shadow-md">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <Link href="/" className="text-2xl font-bold text-blue-600">
-            Logo
+          <Link href="/" className="text-2xl font-bold text-blue-600 dark:text-blue-400">
+            DotSlash8
           </Link>
           <div className="flex-grow flex justify-center">
             <SearchBar />
@@ -51,4 +51,3 @@ export default function Layout({ children }) {
     </div>
   )
 }
-

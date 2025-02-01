@@ -1,29 +1,61 @@
 "use client"
 
-import Layout from "./components/Layout"
-import InfoCard from "./components/InfoCard"
+import { useRef, useState, useEffect } from "react"
+import Navbar from "./components/Navbar"
+import Hero from "./components/Hero"
+import ImageSlider from "./components/ImageSlider"
+import Features from "./components/Features"
+import FAQ from "./components/FAQ"
+import AboutUs from "./components/AboutUs"
+import ThemeToggle from "./components/ThemeToggle"
 import AIAssistButton from "./components/AIAssistButton"
+import ScrollToTop from "./components/ScrollToTop"
 
 export default function Home() {
-  const cards = [
-    { title: "Feature 1", description: "Description of feature 1", image: "/placeholder.svg" },
-    { title: "Feature 2", description: "Description of feature 2", image: "/placeholder.svg" },
-    { title: "Feature 3", description: "Description of feature 3", image: "/placeholder.svg" },
-    { title: "Feature 4", description: "Description of feature 4", image: "/placeholder.svg" },
-    { title: "Feature 5", description: "Description of feature 5", image: "/placeholder.svg" },
-    { title: "Feature 6", description: "Description of feature 6", image: "/placeholder.svg" },
-  ]
+  const [mounted, setMounted] = useState(false)
+  const featuresRef = useRef(null)
+  const faqRef = useRef(null)
+  const aboutRef = useRef(null)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  const scrollToSection = (ref) => {
+    ref.current?.scrollIntoView({ behavior: "smooth" })
+  }
+
+  if (!mounted) {
+    return null
+  }
 
   return (
-    <Layout>
-      <h1 className="text-4xl font-bold mb-8">Welcome to Our Website</h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-        {cards.map((card, index) => (
-          <InfoCard key={index} {...card} />
-        ))}
-      </div>
+    <div className="min-h-screen bg-white dark:bg-gray-900 text-gray-800 dark:text-white">
+      <Navbar
+        onFeaturesClick={() => scrollToSection(featuresRef)}
+        onFAQClick={() => scrollToSection(faqRef)}
+        onAboutClick={() => scrollToSection(aboutRef)}
+      />
+      <main>
+        <div className="container mx-auto px-4">
+          <div className="grid md:grid-cols-2 gap-8 py-20">
+            <Hero />
+            <ImageSlider />
+          </div>
+          <div ref={featuresRef}>
+            <Features />
+          </div>
+          <div ref={faqRef}>
+            <FAQ />
+          </div>
+        </div>
+        <div ref={aboutRef}>
+          <AboutUs />
+        </div>
+      </main>
+      <ThemeToggle />
       <AIAssistButton />
-    </Layout>
+      <ScrollToTop />
+    </div>
   )
 }
-
