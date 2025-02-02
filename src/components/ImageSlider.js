@@ -10,9 +10,9 @@ export default function ImageSlider() {
   const [mounted, setMounted] = useState(false)
 
   const images = [
-    "/placeholder.svg?height=400&width=600",
-    "/placeholder.svg?height=400&width=600",
-    "/placeholder.svg?height=400&width=600",
+    "/Feature1bg.jpg",
+    "/Feature1bg.jpg",
+    "/Feature1bg.jpg",
   ]
 
   useEffect(() => {
