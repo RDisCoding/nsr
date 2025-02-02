@@ -1,5 +1,6 @@
 import "./globals.css"
 import { Providers } from "@/lib/provider"
+import { ThemeProvider } from "next-themes"
 
 export const metadata = {
   title: "DotSlash8 - Modern Web Application",

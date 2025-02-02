@@ -9,22 +9,22 @@ export default function FAQ() {
 
   const faqs = [
     {
-      question: "What is DotSlash8?",
-      answer: "DotSlash8 is a modern web application that showcases the latest web technologies and design trends.",
+      question: "How accurate is the prescription scanning feature?",
+      answer: "Our prescription scanning system uses advanced OCR technology and achieves high accuracy rates for most standard prescriptions. However, the accuracy may vary depending on handwriting clarity and image quality. We recommend always verifying the scanned results with your original prescription and consulting your healthcare provider if you have any doubts.",
     },
     {
-      question: "How do I get started with DotSlash8?",
-      answer: "You can explore our features, read about our mission, and sign up for an account to get started.",
+      question: "Can the symptom checker replace a doctor's visit?",
+      answer: "No, our symptom checker is designed to be an informational tool only and should not replace professional medical advice. It provides preliminary insights based on your symptoms, but a proper medical diagnosis can only be made by a qualified healthcare professional through in-person examination and tests.",
     },
     {
-      question: "Is there a free trial?",
-      answer: "Yes, we offer a 14-day free trial for all new users to explore our premium features.",
+      question: "Is my medical data secure on your platform?",
+      answer: "We take your privacy seriously. All medical data uploaded to our platform is encrypted and stored securely following healthcare data protection standards. We do not share your personal medical information with third parties, and you can delete your data at any time. However, we recommend not uploading sensitive personal information and consulting our privacy policy for detailed information.",
     },
   ]
 
   return (
     <section className="py-20">
-      <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">Frequently Asked Questions</h2>
+      <h2 className="text-3xl md:text-4xl font-bold text-[#ffffff] text-center mb-12">Frequently Asked Questions</h2>
       <div className="max-w-2xl mx-auto space-y-4">
         {faqs.map((faq, index) => (
           <motion.div
@@ -38,7 +38,7 @@ export default function FAQ() {
               onClick={() => setOpenIndex(openIndex === index ? null : index)}
               className="flex justify-between items-center w-full p-4 text-left"
             >
-              <span className="font-medium">{faq.question}</span>
+              <span className="font-medium text-[#ffffff]">{faq.question}</span>
               {openIndex === index ? (
                 <Minus className="h-5 w-5 text-blue-500" />
               ) : (
@@ -54,7 +54,7 @@ export default function FAQ() {
                   transition={{ duration: 0.3 }}
                   className="overflow-hidden"
                 >
-                  <div className="p-4 pt-0 text-gray-600 dark:text-gray-300">{faq.answer}</div>
+                  <div className="p-4 pt-0 text-[#ffffff] dark:text-gray-600">{faq.answer}</div>
                 </motion.div>
               )}
             </AnimatePresence>

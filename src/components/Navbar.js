@@ -3,32 +3,37 @@
 
 import { motion } from "framer-motion"
 import Image from "next/image"
+import Link from "next/link"
+import { Stethoscope } from "lucide-react"
 
 export default function Navbar({ onFeaturesClick, onFAQClick, onAboutClick, onGetStartedClick }) {
   return (
-    <nav className="sticky top-0 z-50 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm">
+    <nav className="sticky top-0 z-50 dark:bg-white/80 backdrop-blur-sm">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center">
-            <Image src="/logo.svg" alt="Logo" width={40} height={40} />
+            <Link href="/" className="flex items-center space-x-2">
+              <Stethoscope className="h-8 w-8 text-primary" />
+              <span className="text-xl font-bold text-white">HealthScribe</span>
+            </Link>
           </div>
 
           <div className="hidden md:flex items-center space-x-8">
             <button
               onClick={onFeaturesClick}
-              className="text-gray-600 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400"
+              className="text-gray-300 dark:text-gray-600 hover:text-blue-500 dark:hover:text-blue-400"
             >
               Features
             </button>
             <button
               onClick={onFAQClick}
-              className="text-gray-600 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400"
+              className="text-gray-300 dark:text-gray-600 hover:text-blue-500 dark:hover:text-blue-400"
             >
               FAQ
             </button>
             <button
               onClick={onAboutClick}
-              className="text-gray-600 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400"
+              className="text-gray-300 dark:text-gray-600 hover:text-blue-500 dark:hover:text-blue-400"
             >
               About
             </button>

@@ -1,64 +1,68 @@
-// src/app/login/page.js
-'use client';
-import { signIn } from 'next-auth/react';
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+"use client"
+import { signIn } from "next-auth/react"
+import { useState } from "react"
+import { useRouter } from "next/navigation"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 
 export default function Login({ onToggle }) {
-  const router = useRouter();
-  const [identifier, setIdentifier] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const router = useRouter()
+  const [identifier, setIdentifier] = useState("")
+  const [password, setPassword] = useState("")
+  const [error, setError] = useState("")
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    const result = await signIn('credentials', {
+    e.preventDefault()
+    const result = await signIn("credentials", {
       redirect: false,
       identifier,
       password,
-    });
+    })
 
     if (result.error) {
-      setError(result.error);
+      setError(result.error)
     } else {
-      router.push('/a');
+      router.push("/a")
     }
-  };
+  }
 
   return (
-    <div className="max-w-md mx-auto p-6 bg-white dark:bg-gray-800 shadow-md rounded-lg">
-      <h2 className="text-xl font-semibold text-center text-gray-800 dark:text-white">Login</h2>
-      {error && <p className="text-red-500">{error}</p>}
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          placeholder="Email or Username"
-          value={identifier}
-          onChange={(e) => setIdentifier(e.target.value)}
-          className="w-full p-2 border rounded mt-2 bg-white dark:bg-gray-700 text-gray-800 dark:text-white"
-          required
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          className="w-full p-2 border rounded mt-2 bg-white dark:bg-gray-700 text-gray-800 dark:text-white"
-          required
-        />
-        <button type="submit" className="w-full bg-blue-500 text-white p-2 rounded mt-3 hover:bg-blue-600">
-          Login
-        </button>
-      </form>
-      <p className="mt-4 text-sm text-gray-600 dark:text-gray-300">
-        Don't have an account?{" "}
-        <button
-          onClick={onToggle}
-          className="text-blue-500 hover:underline"
-        >
-          Sign up
-        </button>
-      </p>
-    </div>
-  );
+    <Card className="w-full max-w-md mx-auto">
+      <CardHeader>
+        <CardTitle className="text-2xl font-semibold text-center">Login</CardTitle>
+      </CardHeader>
+      <CardContent>
+        {error && <p className="text-red-500 mb-4">{error}</p>}
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <Input
+            type="text"
+            placeholder="Email or Username"
+            value={identifier}
+            onChange={(e) => setIdentifier(e.target.value)}
+            className="w-full"
+            required
+          />
+          <Input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className="w-full"
+            required
+          />
+          <Button type="submit" className="w-full">
+            Login
+          </Button>
+        </form>
+        <p className="mt-4 text-sm text-center">
+          Don't have an account?{" "}
+          <button onClick={onToggle} className="text-blue-500 hover:underline">
+            Sign up
+          </button>
+        </p>
+      </CardContent>
+    </Card>
+  )
 }
+
